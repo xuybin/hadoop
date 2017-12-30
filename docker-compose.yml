@@ -1,0 +1,66 @@
+version: "3"
+services:
+
+  master:
+    hostname: hadoop-master
+    build:
+      context: .
+      args:
+        - slaveNum=2
+    ports:
+      - 8098:8088
+      - 50070:50070
+    volumes:
+      - hdfs-master:/hdfs
+    networks:
+      - hadoop
+    extra_hosts:
+      - "hadoop-master:master"
+      - "hadoop-slave1:slave1"
+    deploy:
+      replicas: 1
+
+  slave1:
+    build:
+      context: .
+      args:
+        - slaveNum=2
+    volumes:
+      - hdfs-slave1:/hdfs
+    networks:
+      - hadoop
+    deploy:
+      replicas: 1
+      
+  slave2:
+    build:
+      context: .
+      args:
+        - slaveNum=2
+    volumes:
+      - hdfs-slave2:/hdfs
+    networks:
+      - hadoop
+    deploy:
+      replicas: 1
+ 
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8099:8080"
+    stop_grace_period: 1m30s
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - hadoop
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  hadoop:
+
+volumes:
+  hdfs-master:
+  hdfs-slave1:
+  hdfs-slave2:

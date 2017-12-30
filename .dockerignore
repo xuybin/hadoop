@@ -1,0 +1,7 @@
+*.bak
+*.md
+*.tmp
+.*
+LICENSE
+docker-compose.yml
+docker-stack.yml
