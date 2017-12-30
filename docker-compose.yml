@@ -11,14 +11,11 @@ services:
       - hdfs-master:/hdfs
     networks:
       - hadoop
-    extra_hosts:
-      - hadoop-master:master
-      - hadoop-slave1:slave1
-      - hadoop-slave2:slave2
     deploy:
       replicas: 1
 
   slave1:
+    hostname: hadoop-slave1
     image: xuybin/hadoop
     volumes:
       - hdfs-slave1:/hdfs
@@ -28,6 +25,7 @@ services:
       replicas: 1
       
   slave2:
+    hostname: hadoop-slave1
     image: xuybin/hadoop
     volumes:
       - hdfs-slave2:/hdfs
