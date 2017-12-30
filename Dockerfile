@@ -98,11 +98,14 @@ RUN VER=2.7.5 \
  && chmod -v +x /stop-hadoop.sh \
 
  && echo -e '#!/bin/bash\n'\
-'mkdir -p /hdfs/namenode /hdfs/datanode  /hdfs/tmp\n'\
-'/hadoop/bin/hdfs namenode -format\n'\
+'if [ ! -d "/hdfs/namenode"]; then\n'\
+'    mkdir -p /hdfs/namenode /hdfs/datanode  /hdfs/tmp\n'\
+'    /hadoop/bin/hdfs namenode -format\n'\
+'fi\n'\
 '/usr/sbin/sshd\n -D\n'\
 >/entrypoint.sh \
  && chmod -v +x /entrypoint.sh \
+ 
  
  && apk del wget tar \
  && rm -rf /hadoop/share/doc /hadoop-$VER.tar.gz \
