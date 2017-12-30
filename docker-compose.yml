@@ -3,10 +3,7 @@ services:
 
   master:
     hostname: hadoop-master
-    build:
-      context: .
-      args:
-        - slaveNum=2
+    image: xuybin/hadoop
     ports:
       - 8098:8088
       - 50070:50070
@@ -21,10 +18,7 @@ services:
       replicas: 1
 
   slave1:
-    build:
-      context: .
-      args:
-        - slaveNum=2
+    image: xuybin/hadoop
     volumes:
       - hdfs-slave1:/hdfs
     networks:
@@ -33,10 +27,7 @@ services:
       replicas: 1
       
   slave2:
-    build:
-      context: .
-      args:
-        - slaveNum=2
+    image: xuybin/hadoop
     volumes:
       - hdfs-slave2:/hdfs
     networks:
