@@ -7,7 +7,7 @@ services:
     image: xuybin/hadoop
     ports:
       - 8098:8088
-      - 50070:50070
+      - 8099:50070
     volumes:
       - hdfs-master:/hdfs
     networks:
