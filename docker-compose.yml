@@ -12,8 +12,9 @@ services:
     networks:
       - hadoop
     extra_hosts:
-      - "hadoop-master:master"
-      - "hadoop-slave1:slave1"
+      - hadoop-master:master
+      - hadoop-slave1:slave1
+      - hadoop-slave2:slave2
     deploy:
       replicas: 1
 
