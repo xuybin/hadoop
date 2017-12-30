@@ -102,7 +102,7 @@ RUN VER=2.7.5 \
 '    mkdir -p /hdfs/namenode /hdfs/datanode  /hdfs/tmp\n'\
 '    /hadoop/bin/hdfs namenode -format\n'\
 'fi\n'\
-'/usr/sbin/sshd\n -D\n'\
+'/usr/sbin/sshd -D\n'\
 >/entrypoint.sh \
  && chmod -v +x /entrypoint.sh \
  
