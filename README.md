@@ -3,8 +3,8 @@
 ```bash
 curl -L -s https://raw.githubusercontent.com/xuybin/hadoop/master/docker-compose.yml >docker-compose.yml && docker-compose up -d
 docker exec -it  hadoop-master /bin/bash
-  ./start-hadoop.sh
-  exit
+    ./start-hadoop.sh
+    exit
 docker-compose ps
 ```
 
@@ -25,8 +25,8 @@ ResourceManager:visit http://ip:8099
 ## Stop Hadoop cluster
 ```bash
 docker exec -it  hadoop-master /bin/bash
-  ./stop-hadoop.sh
-  exit
+    ./stop-hadoop.sh
+    exit
 docker-compose stop
 docker-compose rm
 ```
