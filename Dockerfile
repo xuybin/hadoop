@@ -97,12 +97,18 @@ RUN VER=2.7.5 \
 >/stop-hadoop.sh \
  && chmod -v +x /stop-hadoop.sh \
 
- && /hadoop/bin/hdfs namenode -format / \
+ && echo -e '#!/bin/bash\n'\
+'mkdir -p /hdfs/namenode /hdfs/datanode  /hdfs/tmp\n'\
+'/hadoop/bin/hdfs namenode -format\n'\
+'/usr/sbin/sshd\n -D\n'\
+>/entrypoint.sh \
+ && chmod -v +x /entrypoint.sh \
  
  && apk del wget tar \
  && rm -rf /hadoop/share/doc /hadoop-$VER.tar.gz \
- && rm -rf /var/cache/apk/* /tmp/*
+ && rm -rf /var/cache/apk/* /tmp/* \
+ 
 
-ENTRYPOINT ["/usr/sbin/sshd","-D"]
+ENTRYPOINT ["/entrypoint.sh"]
 
 # EXPOSE 8020 8042 8088 9000 10020 19888 50010 50020 50070 50075 50090
