@@ -13,9 +13,9 @@ docker-compose ps
 ```bash
 docker ps
 docker network ls
-docker network ls
-docker volume inspect **_hdfs-master[slave1,slave2]
 docker network inspect  **_hadoop
+docker volume ls
+docker volume inspect **_hdfs-master[slave1,slave2]
 ```
 
 ## Verification Hadoop cluster
