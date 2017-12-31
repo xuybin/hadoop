@@ -20,10 +20,11 @@ RUN VER=2.7.5 \
 		 echo '  LogLevel quiet'; \
 	  } > /root/.ssh/config \
 	  		 
- && mkdir -p /hadoop /hdfs/namenode /hdfs/datanode  /hdfs/tmp \
+ && mkdir -p /hadoop \
  && tar zxf hadoop-$VER.tar.gz -C /hadoop --strip 1 \
  && sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/lib/jvm/default-jvm\nexport HADOOP_PREFIX=/hadoop\nexport HADOOP_HOME=/hadoop\n:' /hadoop/etc/hadoop/hadoop-env.sh \
- && sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/hadoop/etc/hadoop/:' /hadoop/etc/hadoop/hadoop-env.sh \
+ && sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/hadoop/etc/hadoop\nexport HADOOP_LOG_DIR=/hdfs/logs\nexport HADOOP_PID_DIR=/hdfs/pids\n:' /hadoop/etc/hadoop/hadoop-env.sh \
+ && sed -i '/^export YARN_CONF_DIR/ s:.*:export YARN_CONF_DIR=/hadoop/etc/hadoop\nexport YARN_LOG_DIR=/hdfs/logs\nexport YARN_PID_DIR=/hdfs/pids\n:' /hadoop/etc/hadoop/yarn-env.sh \
 
  && echo -e  '<?xml version="1.0"?>\n<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>\n'\
 '<configuration>\n'\
@@ -94,9 +95,14 @@ RUN VER=2.7.5 \
 >/stop-hadoop.sh \
  && chmod -v +x /stop-hadoop.sh \
 
+ && echo -e '#!/bin/bash\n'\
+'PATH=$PATH:/hadoop/bin:/hadoop/sbin\n'\
+>/etc/profile.d/hadoop.sh \
+ && chmod -v +x /etc/profile.d/hadoop.sh \
+
  && echo -e '#!/bin/sh\n'\
 'if [ ! -d "/hdfs/namenode" ]; then\n'\
-'    mkdir -p /hdfs/namenode /hdfs/datanode  /hdfs/tmp\n'\
+'    mkdir -p /hdfs/namenode /hdfs/datanode /hdfs/logs /hdfs/pids /hdfs/tmp\n'\
 '    /hadoop/bin/hdfs namenode -format\n'\
 'fi\n'\
 'if [ -z ${SLAVES} ]; then\n'\
