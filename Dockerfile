@@ -6,7 +6,7 @@ RUN HADOOP_VER=2.7.5 \
  && URL2="https://mirrors.aliyun.com/apache/hadoop/common/hadoop-$HADOOP_VER/hadoop-$HADOOP_VER.tar.gz" \
 
  && apk --update add --no-cache wget tar openssh bash openjdk8 \
- && (wget -t 10 --max-redirect 1 --retry-connrefused -O "hadoop-$VEHADOOP_VERR.tar.gz" "$URL1" || \
+ && (wget -t 10 --max-redirect 1 --retry-connrefused -O "hadoop-$HADOOP_VER.tar.gz" "$URL1" || \
 		 wget -t 10 --max-redirect 1 --retry-connrefused -O "hadoop-$HADOOP_VER.tar.gz" "$URL2") \
 		  
  && sed -i -e "s/bin\/ash/bin\/bash/" /etc/passwd \
