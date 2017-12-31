@@ -102,8 +102,8 @@ RUN VER=2.7.5 \
 '    mkdir -p /hdfs/namenode /hdfs/datanode  /hdfs/tmp\n'\
 '    /hadoop/bin/hdfs namenode -format\n'\
 'fi\n'\
-'/usr/sbin/sshd -D\n'\
->/entrypoint.sh \
+'exec /usr/sbin/sshd -D '\
+>/usr/local/bin/entrypoint.sh \
  && chmod -v +x /entrypoint.sh \
  
  
@@ -112,6 +112,6 @@ RUN VER=2.7.5 \
  && rm -rf /var/cache/apk/* /tmp/* \
  
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
 
 # EXPOSE 8020 8042 8088 9000 10020 19888 50010 50020 50070 50075 50090
