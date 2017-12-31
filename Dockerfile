@@ -96,10 +96,9 @@ RUN HADOOP_VER=2.7.5 \
  && chmod -v +x /stop-hadoop.sh \
 
  && echo -e '#!/bin/bash\n'\
-'export JAVA_HOME=/usr/lib/jvm/default-jvm\n'\
-'export PATH=$PATH:/usr/lib/jvm/default-jvm/bin:/hadoop/bin:/hadoop/sbin\n'\
+'export JAVA_HOME="/usr/lib/jvm/default-jvm"\n'\
+'export PATH="$PATH:/usr/lib/jvm/default-jvm/bin:/hadoop/bin:/hadoop/sbin"\n'\
 >/etc/profile.d/hadoop.sh \
- && chmod -v +x /etc/profile.d/hadoop.sh \
 
  && echo -e '#!/bin/sh\n'\
 'if [ ! -d "/hdfs/logs" ]; then\n'\
@@ -113,8 +112,6 @@ RUN HADOOP_VER=2.7.5 \
 '    SLAVES="slave1,slave2"\n'\
 'fi\n'\
 'awk "BEGIN{info=\"$SLAVES\";tlen=split(info,tA,\",\");for(k=1;k<=tlen;k++){print tA[k];}}">/hadoop/etc/hadoop/slaves\n'\
-'export JAVA_HOME=/usr/lib/jvm/default-jvm\n'\
-'export PATH=$PATH:/usr/lib/jvm/default-jvm/bin:/hadoop/bin:/hadoop/sbin\n'\
 'exec /usr/sbin/sshd -D '\
 >/usr/local/bin/entrypoint.sh \
  && chmod -v +x /usr/local/bin/entrypoint.sh \
