@@ -97,7 +97,7 @@ RUN VER=2.7.5 \
 >/stop-hadoop.sh \
  && chmod -v +x /stop-hadoop.sh \
 
- && echo -e '#!/bin/bash\n'\
+ && echo -e '#!/bin/sh\n'\
 'if [ ! -d "/hdfs/namenode" ]; then\n'\
 '    mkdir -p /hdfs/namenode /hdfs/datanode  /hdfs/tmp\n'\
 '    /hadoop/bin/hdfs namenode -format\n'\
@@ -109,7 +109,7 @@ RUN VER=2.7.5 \
  
  && apk del wget tar \
  && rm -rf /hadoop/share/doc /hadoop-$VER.tar.gz \
- && rm -rf /var/cache/apk/* /tmp/* \
+ && rm -rf /var/cache/apk/* /tmp/*
  
 
 ENTRYPOINT ["entrypoint.sh"]
