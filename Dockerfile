@@ -104,7 +104,7 @@ RUN VER=2.7.5 \
 'fi\n'\
 'exec /usr/sbin/sshd -D '\
 >/usr/local/bin/entrypoint.sh \
- && chmod -v +x /entrypoint.sh \
+ && chmod -v +x /usr/local/bin/entrypoint.sh \
  
  
  && apk del wget tar \
