@@ -90,8 +90,8 @@ RUN HADOOP_VER=2.7.5 \
  && chmod -v +x /start-hadoop.sh \
  
  && echo -e '#!/bin/bash\n'\
-'/hadoop/sbin/stop-dfs.sh\n'\
 '/hadoop/sbin/stop-yarn.sh\n'\
+'/hadoop/sbin/stop-dfs.sh\n'\
 >/stop-hadoop.sh \
  && chmod -v +x /stop-hadoop.sh \
 
