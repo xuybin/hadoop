@@ -96,7 +96,7 @@ RUN VER=2.7.5 \
  && chmod -v +x /stop-hadoop.sh \
 
  && echo -e '#!/bin/bash\n'\
-'PATH=$PATH:/hadoop/bin:/hadoop/sbin\n'\
+'export PATH=$PATH:/hadoop/bin:/hadoop/sbin\n'\
 >/etc/profile.d/hadoop.sh \
  && chmod -v +x /etc/profile.d/hadoop.sh \
 

@@ -35,7 +35,12 @@ ResourceManager:visit http://ip:8099
 
 ## Test Hadoop cluster
 ```bash
-
+mkdir src &&echo "from f1 content" >src/f1.txt && echo "from f2 content" >src/f2.txt
+hadoop fs -mkdir -p target && hdfs dfs -put ./src/* target
+hdfs dfs -cat target/f1.txt
+hdfs dfs -cat target/f2.txt
+hadoop jar /hadoop/share/hadoop/mapreduce/sources/hadoop-mapreduce-examples-2.7.5-sources.jar org.apache.hadoop.examples.WordCount target target2
+hdfs dfs -cat target2/*
 ```
 
 ## Stop Hadoop cluster
@@ -43,11 +48,12 @@ ResourceManager:visit http://ip:8099
 docker exec -it  hadoop-master /bin/bash
     ./stop-hadoop.sh
     exit
+docker-compose stop
 ```
 
 ## Clean Hadoop cluster
 ```bash
-docker-compose stop && docker-compose rm -f
+docker-compose rm -f
 docker volume ls
 docker volume rm **_hdfs-master[slave1,slave2]
 docker network ls
