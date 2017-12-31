@@ -4,7 +4,7 @@
 In China
 ```bash
 docker rmi -f registry.cn-shenzhen.aliyuncs.com/xuybin/hadoop && curl -L -s https://raw.githubusercontent.com/xuybin/hadoop/master/docker-compose-aliyun.yml >docker-compose.yml && docker-compose up -d
-docker exec -it  hadoop-master /bin/bash
+docker exec -it  master /bin/bash
     ./start-hadoop.sh
     exit
 docker-compose ps
@@ -12,7 +12,7 @@ docker-compose ps
 Outside China
 ```bash
 docker rmi -f xuybin/hadoop &&curl -L -s https://raw.githubusercontent.com/xuybin/hadoop/master/docker-compose.yml >docker-compose.yml && docker-compose up -d
-docker exec -it  hadoop-master /bin/bash
+docker exec -it  master /bin/bash
     ./start-hadoop.sh
     exit
 docker-compose ps
@@ -45,7 +45,7 @@ hdfs dfs -cat target2/*
 
 ## Stop Hadoop cluster
 ```bash
-docker exec -it  hadoop-master /bin/bash
+docker exec -it  master /bin/bash
     ./stop-hadoop.sh
     exit
 docker-compose stop
