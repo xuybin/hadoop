@@ -83,8 +83,6 @@ RUN VER=2.7.5 \
 '</configuration>\n'\
 >/hadoop/etc/hadoop/yarn-site.xml \
 
- && awk "BEGIN{for(i=1; i <= $slaveNum; i++) print \"hadoop-slave\"i}" >/hadoop/etc/hadoop/slaves \
-
  && echo -e '#!/bin/bash\n'\
 '/hadoop/sbin/start-dfs.sh\n'\
 '/hadoop/sbin/start-yarn.sh\n'\
@@ -102,6 +100,10 @@ RUN VER=2.7.5 \
 '    mkdir -p /hdfs/namenode /hdfs/datanode  /hdfs/tmp\n'\
 '    /hadoop/bin/hdfs namenode -format\n'\
 'fi\n'\
+'if [ -z ${SLAVES} ]; then\n'\
+'    SLAVES="hadoop-slave1,hadoop-slave2"\n'\
+'fi\n'\
+'awk "BEGIN{info=\"$SLAVES\";tlen=split(info,tA,\",\");for(k=1;k<=tlen;k++){print tA[k];}}">/hadoop/etc/hadoop/slaves\n'\
 'exec /usr/sbin/sshd -D '\
 >/usr/local/bin/entrypoint.sh \
  && chmod -v +x /usr/local/bin/entrypoint.sh \

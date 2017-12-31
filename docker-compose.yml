@@ -12,6 +12,8 @@ services:
       - hdfs-master:/hdfs
     networks:
       - hadoop
+    environment:
+      - SLAVES=hadoop-slave1,hadoop-slave2,hadoop-slave3
 
   slave1:
     container_name: hadoop-slave1
@@ -21,7 +23,8 @@ services:
       - hdfs-slave1:/hdfs
     networks:
       - hadoop
-      
+    environment:
+      - SLAVES=hadoop-slave1,hadoop-slave2,hadoop-slave3  
   slave2:
     container_name: hadoop-slave2
     hostname: hadoop-slave2
@@ -30,7 +33,8 @@ services:
       - hdfs-slave2:/hdfs
     networks:
       - hadoop
-
+    environment:
+      - SLAVES=hadoop-slave1,hadoop-slave2,hadoop-slave3
 networks:
   hadoop:
 
