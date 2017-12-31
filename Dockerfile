@@ -113,6 +113,7 @@ RUN HADOOP_VER=2.7.5 \
 '    SLAVES="slave1,slave2"\n'\
 'fi\n'\
 'awk "BEGIN{info=\"$SLAVES\";tlen=split(info,tA,\",\");for(k=1;k<=tlen;k++){print tA[k];}}">/hadoop/etc/hadoop/slaves\n'\
+'/etc/profile.d/hbase.sh\n'\
 'exec /usr/sbin/sshd -D '\
 >/usr/local/bin/entrypoint.sh \
  && chmod -v +x /usr/local/bin/entrypoint.sh \
