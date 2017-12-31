@@ -1,7 +1,6 @@
 FROM alpine:latest
 
 VOLUME ["/hdfs"]
-ARG slaveNum=2
 RUN VER=2.7.5 \
  && URL1="https://mirrors.aliyun.com/apache/hadoop/common/hadoop-$VER/hadoop-$VER.tar.gz" \
  && URL2="http://archive.apache.org/dist/hadoop/common/hadoop-$VER/hadoop-$VER.tar.gz" \
