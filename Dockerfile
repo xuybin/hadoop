@@ -102,8 +102,11 @@ RUN HADOOP_VER=2.7.5 \
  && chmod -v +x /etc/profile.d/hadoop.sh \
 
  && echo -e '#!/bin/sh\n'\
+'if [ ! -d "/hdfs/logs" ]; then\n'\
+'    mkdir -p /hdfs/logs /hdfs/pids /hdfs/tmp\n'\
+'fi\n'\
 'if [ ! -d "/hdfs/namenode" ]; then\n'\
-'    mkdir -p /hdfs/namenode /hdfs/datanode /hdfs/logs /hdfs/pids /hdfs/tmp\n'\
+'    mkdir -p /hdfs/namenode /hdfs/datanode\n'\
 '    /hadoop/bin/hdfs namenode -format\n'\
 'fi\n'\
 'if [ -z ${SLAVES} ]; then\n'\
