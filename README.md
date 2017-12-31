@@ -1,6 +1,15 @@
 # xuybin/hadoop
 ![hadoop](https://raw.githubusercontent.com/xuybin/hadoop/master/hadoop.png)
 ## Run Hadoop cluster with docker-compose
+In China
+```bash
+curl -L -s https://raw.githubusercontent.com/xuybin/hadoop/master/docker-compose-aliyun.yml >docker-compose.yml && docker-compose up -d
+docker exec -it  hadoop-master /bin/bash
+    ./start-hadoop.sh
+    exit
+docker-compose ps
+```
+Outside China
 ```bash
 curl -L -s https://raw.githubusercontent.com/xuybin/hadoop/master/docker-compose.yml >docker-compose.yml && docker-compose up -d
 docker exec -it  hadoop-master /bin/bash
