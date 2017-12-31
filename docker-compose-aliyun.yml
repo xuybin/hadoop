@@ -2,8 +2,8 @@ version: "3"
 services:
 
   master:
-    container_name: hadoop-master
-    hostname: hadoop-master
+    container_name: master
+    hostname: master
     image: registry.cn-shenzhen.aliyuncs.com/xuybin/hadoop
     ports:
       - 8098:8088
@@ -13,28 +13,28 @@ services:
     networks:
       - hadoop
     environment:
-      - SLAVES=hadoop-slave1,hadoop-slave2
+      - SLAVES=slave1,slave2
 
   slave1:
-    container_name: hadoop-slave1
-    hostname: hadoop-slave1
+    container_name: slave1
+    hostname: slave1
     image: registry.cn-shenzhen.aliyuncs.com/xuybin/hadoop
     volumes:
       - hdfs-slave1:/hdfs
     networks:
       - hadoop
     environment:
-      - SLAVES=hadoop-slave1,hadoop-slave2
+      - SLAVES=slave1,slave2
   slave2:
-    container_name: hadoop-slave2
-    hostname: hadoop-slave2
+    container_name: slave2
+    hostname: slave2
     image: registry.cn-shenzhen.aliyuncs.com/xuybin/hadoop
     volumes:
       - hdfs-slave2:/hdfs
     networks:
       - hadoop
     environment:
-      - SLAVES=hadoop-slave1,hadoop-slave2
+      - SLAVES=slave1,slave2
 networks:
   hadoop:
 

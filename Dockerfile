@@ -57,7 +57,7 @@ RUN VER=2.7.5 \
 '<configuration>\n'\
 '    <property>\n'\
 '        <name>fs.defaultFS</name>\n'\
-'        <value>hdfs://hadoop-master:9000/</value>\n'\
+'        <value>hdfs://master:9000/</value>\n'\
 '    </property>\n'\
 '    <property>\n'\
 '        <name>hadoop.tmp.dir</name>\n'\
@@ -78,7 +78,7 @@ RUN VER=2.7.5 \
 '    </property>\n'\
 '    <property>\n'\
 '        <name>yarn.resourcemanager.hostname</name>\n'\
-'        <value>hadoop-master</value>\n'\
+'        <value>master</value>\n'\
 '    </property>\n'\
 '</configuration>\n'\
 >/hadoop/etc/hadoop/yarn-site.xml \
@@ -107,7 +107,7 @@ RUN VER=2.7.5 \
 '    /hadoop/bin/hdfs namenode -format\n'\
 'fi\n'\
 'if [ -z ${SLAVES} ]; then\n'\
-'    SLAVES="hadoop-slave1,hadoop-slave2"\n'\
+'    SLAVES="slave1,slave2"\n'\
 'fi\n'\
 'awk "BEGIN{info=\"$SLAVES\";tlen=split(info,tA,\",\");for(k=1;k<=tlen;k++){print tA[k];}}">/hadoop/etc/hadoop/slaves\n'\
 'exec /usr/sbin/sshd -D '\
