@@ -2,8 +2,8 @@ FROM alpine:latest
 
 VOLUME ["/hdfs"]
 RUN VER=2.7.5 \
- && URL1="https://mirrors.aliyun.com/apache/hadoop/common/hadoop-$VER/hadoop-$VER.tar.gz" \
- && URL2="http://archive.apache.org/dist/hadoop/common/hadoop-$VER/hadoop-$VER.tar.gz" \
+ && URL1="http://archive.apache.org/dist/hadoop/common/hadoop-$VER/hadoop-$VER.tar.gz" \
+ && URL2="https://mirrors.aliyun.com/apache/hadoop/common/hadoop-$VER/hadoop-$VER.tar.gz" \
 
  && apk --update add --no-cache wget tar openssh bash openjdk8 \
  && (wget -t 10 --max-redirect 1 --retry-connrefused -O "hadoop-$VER.tar.gz" "$URL1" || \
