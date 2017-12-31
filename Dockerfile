@@ -1,13 +1,13 @@
 FROM alpine:latest
 
 VOLUME ["/hdfs"]
-RUN VER=2.7.5 \
- && URL1="http://archive.apache.org/dist/hadoop/common/hadoop-$VER/hadoop-$VER.tar.gz" \
- && URL2="https://mirrors.aliyun.com/apache/hadoop/common/hadoop-$VER/hadoop-$VER.tar.gz" \
+RUN HADOOP-VER=2.7.5 \
+ && URL1="http://archive.apache.org/dist/hadoop/common/hadoop-$HADOOP-VER/hadoop-$HADOOP-VER.tar.gz" \
+ && URL2="https://mirrors.aliyun.com/apache/hadoop/common/hadoop-$HADOOP-VER/hadoop-$HADOOP-VER.tar.gz" \
 
  && apk --update add --no-cache wget tar openssh bash openjdk8 \
- && (wget -t 10 --max-redirect 1 --retry-connrefused -O "hadoop-$VER.tar.gz" "$URL1" || \
-		 wget -t 10 --max-redirect 1 --retry-connrefused -O "hadoop-$VER.tar.gz" "$URL2") \
+ && (wget -t 10 --max-redirect 1 --retry-connrefused -O "hadoop-$VEHADOOP-VERR.tar.gz" "$URL1" || \
+		 wget -t 10 --max-redirect 1 --retry-connrefused -O "hadoop-$HADOOP-VER.tar.gz" "$URL2") \
 		  
  && sed -i -e "s/bin\/ash/bin\/bash/" /etc/passwd \
  && ssh-keygen -A \
@@ -21,7 +21,7 @@ RUN VER=2.7.5 \
 	  } > /root/.ssh/config \
 	  		 
  && mkdir -p /hadoop \
- && tar zxf hadoop-$VER.tar.gz -C /hadoop --strip 1 \
+ && tar zxf hadoop-$HADOOP-VER.tar.gz -C /hadoop --strip 1 \
  && sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/lib/jvm/default-jvm\nexport HADOOP_PREFIX=/hadoop\nexport HADOOP_HOME=/hadoop\n:' /hadoop/etc/hadoop/hadoop-env.sh \
  && sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/hadoop/etc/hadoop\nexport HADOOP_LOG_DIR=/hdfs/logs\nexport HADOOP_PID_DIR=/hdfs/pids\n:' /hadoop/etc/hadoop/hadoop-env.sh \
  && sed -i '/^export YARN_CONF_DIR/ s:.*:export YARN_CONF_DIR=/hadoop/etc/hadoop\nexport YARN_LOG_DIR=/hdfs/logs\nexport YARN_PID_DIR=/hdfs/pids\n:' /hadoop/etc/hadoop/yarn-env.sh \
@@ -116,7 +116,7 @@ RUN VER=2.7.5 \
  
  
  && apk del wget tar \
- && rm -rf /hadoop/share/doc /hadoop-$VER.tar.gz \
+ && rm -rf /hadoop/share/doc /hadoop-$HADOOP-VER.tar.gz \
  && rm -rf /var/cache/apk/* /tmp/*
  
 
