@@ -100,6 +100,12 @@ RUN HADOOP_VER=2.7.5 \
 'export PATH="$PATH:/usr/lib/jvm/default-jvm/bin:/hadoop/bin:/hadoop/sbin"\n'\
 >/etc/profile.d/hadoop.sh \
 
+ && echo -e \
+'if [ -z ${JAVA_HOME} ]; then\n'\
+'    source /etc/profile\n'\
+'fi\n'\
+>/root/.bashrc \
+
  && echo -e '#!/bin/sh\n'\
 'if [ ! -d "/hdfs/logs" ]; then\n'\
 '    mkdir -p /hdfs/logs /hdfs/pids /hdfs/tmp\n'\
@@ -113,7 +119,6 @@ RUN HADOOP_VER=2.7.5 \
 'fi\n'\
 'awk "BEGIN{info=\"$SLAVES\";tlen=split(info,tA,\",\");for(k=1;k<=tlen;k++){print tA[k];}}">/hadoop/etc/hadoop/slaves\n'\
 'exec /usr/sbin/sshd -D '\
-'source /etc/profile\n'\
 >/usr/local/bin/entrypoint.sh \
  && chmod -v +x /usr/local/bin/entrypoint.sh \
  
